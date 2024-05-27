@@ -1,0 +1,7 @@
+<h2>Новый заказ на сайте</h2>
+<p>Пользователь {{ user.email }} оформил заказ на сумму {{ total_price }} рублей.</p>
+<ul>
+    {% for service in services %}
+        <li>{{ service.services_title }} - {{ service.price }} ₽</li>
+    {% endfor %}
+</ul>

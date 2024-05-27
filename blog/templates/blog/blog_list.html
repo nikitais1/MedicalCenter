@@ -1,0 +1,43 @@
+{% extends 'medical_center/base.html' %}
+{% load my_tags_blog %}
+{% block content %}
+<div class="col-12 mb-5">
+    {% if perms.blog.add_blog %}
+    <a class="btn btn-primary" href="{% url 'blog:create' %}">Добавить новость</a>
+    {% endif %}
+</div>
+{% for object in object_list %}
+<div class="col-md-6">
+    <div class="card mb-4 box-shadow">
+        <img class="card-img-top"
+             src="{{ object.blog_image | blog_image }}" height="300"
+             alt="Card image cap">
+        <div style="height: 170px;" class="card-body">
+            <p class="card-text">
+                {% if object.is_published %}
+                <b>Блог: "{{ object.blog_title|title }}"</b>
+                {% else %}
+                <span class="text-muted"><b>Блог: "{{ object.blog_title|title }}"</b></span>
+                {% endif %}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <form>
+                    <a href="{% url 'blog:view' object.pk %}"
+                       class="btn btn-sm btn-primary">Подробнее</a>
+                    {% if perms.blog.change_blog %}
+                    <a href="{% url 'blog:edit' object.pk %}"
+                       class="btn btn-sm btn-success">Редактировать</a>
+                    {% endif %}
+                    {% if perms.blog.delete_blog %}
+                    <a href="{% url 'blog:delete' object.pk %}"
+                       class="btn btn-sm btn-danger">Удалить</a>
+                    {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

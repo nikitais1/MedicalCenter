@@ -1,0 +1,39 @@
+{% extends 'medical_center/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h4>Вход</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success">
+                                <p>{{ message }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form.as_p }}
+                    <div class="btn-group">
+                        <button type="submit" name="save" class="btn btn-primary">Войти</button>
+                        <span style="margin-left: 10px;"></span>
+                        <input type="button" class="btn btn-outline-success" value="Назад"
+                               onclick="history.back()">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a class="nav-link px-2 link-body-emphasis text-decoration-none"
+               href="{% url 'users:reset_password' %}">Забыли пароль?</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

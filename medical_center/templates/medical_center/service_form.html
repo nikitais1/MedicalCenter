@@ -1,0 +1,64 @@
+{% extends 'medical_center/base.html' %}
+
+{% block content %}
+
+<div class="col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <div class="card-title">
+                        {% if object.pk %}
+                        <h2>Редактирование услуги</h2>
+                        {% else %}
+                        <h2>Добавление услуги</h2>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="btn-group">
+                        <button type="submit" name="save" class="btn btn-success">Сохранить</button>
+                        <span style="margin-left: 10px;"></span>
+                        <input type="button" class="btn btn-info" value="Назад"
+                               onclick="history.back()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if object.owner == request.user %}
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <div class="card-title">
+                        {% if object.pk %}
+                        <h2>Редактирование версии</h2>
+                        {% else %}
+                        <h2>Добавление версии</h2>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    {{ formset.management_form}}
+                    {% for form in formset.forms %}
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if not forloop.last %}
+                    <hr>
+                    {% endif %}
+                    {% endfor %}
+                    <form>
+                        <button type="submit" name="save" class="btn btn-success">Сохранить</button>
+                        <span style="margin-left: 10px;"></span>
+                        <input type="button" class="btn btn-dark" value="Назад"
+                               onclick="history.back()">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+{% endblock %}

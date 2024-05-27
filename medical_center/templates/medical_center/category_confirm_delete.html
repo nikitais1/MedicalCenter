@@ -1,0 +1,18 @@
+{% extends 'medical_center/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card mb-4 box-shadow">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Хотите удалить продукт "{{ object.category_title }}"?</p>
+                    <button type="submit" class="btn btn-success">Подтвердить</button>
+                    <a href="{% url 'medical_center:service_list' %}" class="btn btn-danger">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

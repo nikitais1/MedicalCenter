@@ -1,0 +1,14 @@
+<h2>Заказ на сайте центра медицинских анализов</h2>
+<p>Вы оформили заказ услуги на платформе.</p>
+<p>Ваш заказ:</p>
+<ul>
+    {% for service in services %}
+        <li>
+            <div>
+                <h6>{{ service.services_title }}</h6>
+                <small>Срок выполнения: {{ service.deadline }}</small>
+            </div>
+            <span>{{ service.price }} ₽</span>
+        </li>
+    {% endfor %}
+</ul>

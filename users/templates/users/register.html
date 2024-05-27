@@ -1,0 +1,33 @@
+{% extends 'medical_center/base.html' %}
+
+{% block content %}
+<div class="col-12">
+    <form class="row" method="post" enctype="multipart/form-data">
+        <div class="col-6">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h4>Регистрация</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {% if invalid_token %}
+                        <div class="alert alert-danger">
+                            <p>Извините, ваш токен недействителен. <a href="{% url 'users:invalid_token' %}">Попробуйте снова</a>.</p>
+                        </div>
+                    {% endif %}
+                    {{ form.as_p }}
+                    <div class="btn-group">
+                        <button type="submit" name="save" class="btn btn-primary">Регистрация</button>
+                        <span style="margin-left: 10px;"></span>
+                        <input type="button" class="btn btn-outline-success" value="Назад"
+                               onclick="history.back()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
