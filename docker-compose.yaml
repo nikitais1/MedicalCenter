@@ -3,11 +3,11 @@ version: "3"
 services:
 
   db:
-    image: postgres
+    image: postgres:16-alpine
     container_name: postgres_db
     restart: always
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - ./pg_data:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
@@ -24,7 +24,7 @@ services:
     build: .
     container_name: medical_center_app
     tty: true
-    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "python manage.py migrate && python manage.py loaddata data.json && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/code
     env_file:
